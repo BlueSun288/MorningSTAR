@@ -28,8 +28,8 @@
 				</div>
 			</div>
 			<div id="repairInformation">
-				<textarea id="problemDescription" placeholder="Describe issues" v-model="problemDescription" class="textInput block text-center mx-auto"></textarea>
-				<textarea id="solution" placeholder="Enter repair information" v-model="solution" class="textInput block text-center mx-auto"></textarea>
+				<textarea id="problemDescription" placeholder="Describe issues" v-model="problemDescription" class="textInput block text-center mx-auto" cols="50"></textarea>
+				<textarea id="solution" placeholder="Enter repair information" v-model="solution" class="textInput block text-center mx-auto" cols="50"></textarea>
 			</div>
 			<div id="accessoryInformation">
 				<label for="powerAdapter">Power Adapter?</label>
