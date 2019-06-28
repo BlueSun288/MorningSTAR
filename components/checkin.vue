@@ -1,40 +1,44 @@
 <template>
-	<form id="checkinForm">
+	<form id="checkinForm" class="card">
+		<h1 class="cardHeader">HBC PC Check-In</h1>
 		<div id="customerInformation">
 			<h2>Enter Customer Information</h2>
-			<div id="topRow">
-				<input id="firstName" placeholder="First Name" v-model="firstName">
-				<input id="lastName" placeholder="Last Name" v-model="lastName">
-				<input id="accountNumber" placeholder="Account #" v-model="account">
+			<div id="topRow" class="block">
+				<input id="firstName" placeholder="First Name" v-model="firstName" class="textInput">
+				<input id="lastName" placeholder="Last Name" v-model="lastName" class="textInput">
+				<input id="accountNumber" placeholder="Account #" v-model="account" class="textInput">
 			</div>
 			<div id="bottomRow">
-				<input id="address" placeholder="Customer Address" v-model="address">
-				<input id="phoneNumber" placeholder="Phone #" v-model="phone">
-				<input id="email" placeholder="Email address" v-model="email">
+				<input id="address" placeholder="Customer Address" v-model="address" class="textInput">
+				<input id="phoneNumber" placeholder="Phone #" v-model="phone" class="textInput">
+				<input id="email" placeholder="Email address" v-model="email" class="textInput">
 			</div>
 			<div id="computerInformation">
 				<h2>Enter Computer Information</h2>
 				<div>
-					<select id="computerMFG" v-model="computerMFG">
+					<select id="computerMFG" v-model="computerMFG" class="textInput">
 						<option disabled selected>Select Manufacturer</option>
 						<option :key="index" v-bind:value="MFGOptions.value"
 						        v-for="(MFGOptions, index) in MFGOptions">
 							{{ MFGOptions.text }}
 						</option>
 					</select>
-					<input id="modelNumber" placeholder="Model #" type="text">
-					<input id="serialNumber" placeholder="Serial #" type="text">
+					<input id="modelNumber" placeholder="Model #" type="text" class="textInput">
+					<input id="serialNumber" placeholder="Serial #" type="text" class="textInput">
 				</div>
 			</div>
 			<div id="repairInformation">
-				<textarea id="problemDescription" placeholder="Describe issues" v-model="problemDescription"></textarea>
-				<textarea id="solution" placeholder="Enter repair information" v-model="solution"></textarea>
+				<textarea id="problemDescription" placeholder="Describe issues" v-model="problemDescription" class="textInput block text-center mx-auto"></textarea>
+				<textarea id="solution" placeholder="Enter repair information" v-model="solution" class="textInput block text-center mx-auto"></textarea>
 			</div>
 			<div id="accessoryInformation">
 				<label for="powerAdapter">Power Adapter?</label>
 				<input id="powerAdapter" type="checkbox" v-model="powerCord">
+				<label for="bag">Bag?</label>
+				<input id="bag" type="checkbox" v-model="bag">
 			</div>
 		</div>
+		<input type="submit" value="Next >" class="nextButton">
 	</form>
 </template>
 
@@ -67,6 +71,7 @@
 				problemDescription: "",
 				solution: "",
 				powerCord: "",
+				bag:""
 			}
 		}
 	}
