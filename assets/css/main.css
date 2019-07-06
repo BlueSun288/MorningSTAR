@@ -2,15 +2,14 @@
 @import url('https://fonts.googleapis.com/css?family=Rubik+Mono+One&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
 
-@tailwind base;
 .card {
 	font-family: 'Open Sans', sans-serif;
-	@apply bg-white shadow-md w-2 / 3 mx-auto p-2
+	@apply bg-white shadow-md w-2/3 mx-auto p-2 text-center
 }
 
 .cardHeader {
 	font-family: 'Open Sans', sans-serif;
-	@apply text-left text-black p-4 bg-gray-300 w-2 / 3 mx-auto
+	@apply text-left text-black p-4 bg-gray-300 w-2/3 mx-auto
 }
 
 .cardHeaderTitle {
@@ -20,6 +19,18 @@
 .cardHeaderSubtitle {
 	@apply font-bold text-gray-600
 }
-
+.submitButton{
+	@apply px-2 py-2 font-bold rounded bg-gray-500
+}
+.gsTextField{
+	@apply border-b-2 border-gray-400 px-2 m-2
+}
+.gsTextArea{
+	@apply border-b-2 border-gray-400 px-2 m-2 block mx-auto
+}
+.gsHeader{
+	@apply border-b-2 border-gray-500 font-bold m-2 text-xl
+}
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
