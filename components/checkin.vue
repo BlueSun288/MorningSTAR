@@ -3,7 +3,7 @@
 		<form-header v-bind:card-subtitle="subtitle" v-bind:card-title="title"></form-header>
 		<form autocapitalize="on" autocomplete="off" class="card" id="checkinForm">
 			<div id="customerInformation" class="m-2">
-				<h2 class="gsHeader">Customer Information</h2>
+				<h2 class="gsHeader">Apprentice Information</h2>
 				<div id="topRow" class="block">
 					<input id="firstName" placeholder="First Name" v-model="firstName" class="gsTextField focus:outline-none focus:border-gray-700">
 					<input id="lastName" placeholder="Last Name" v-model="lastName" class="gsTextField focus:outline-none focus:border-gray-700">
@@ -31,8 +31,8 @@
 			</div>
 			<div id="repairInformation" class="m-2">
 				<h2 class="gsHeader">Repair Information</h2>
-				<textarea id="problemDescription" placeholder="Describe issues" v-model="problemDescription"  cols="50" rows="4" class="gsTextArea focus:outline-none focus:border-gray-700"></textarea>
-				<textarea id="solution" placeholder="Enter repair information" v-model="solution" cols="50" rows="4" class="gsTextArea focus:outline-none focus:border-gray-700"></textarea>
+				<textarea id="problemDescription" placeholder="Describe issues" v-model="problemDescription"  cols="50" rows="4" class="gsTextArea focus:outline-none focus:border-gray-700 max-w-full"></textarea>
+				<textarea id="solution" placeholder="Enter repair information" v-model="solution" cols="50" rows="4" class="gsTextArea focus:outline-none focus:border-gray-700 max-w-full"></textarea>
 			</div>
 			<div id="accessoryInformation">
 				<label for="powerAdapter">Power Adapter?</label>
