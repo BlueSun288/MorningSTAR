@@ -1,5 +1,7 @@
 <template>
-	<form id="checkinForm">
+	<div class="mt-2">
+		<form-header v-bind:card-subtitle="subtitle" v-bind:card-title="title"></form-header>
+		<form class="card" id="checkinForm">
 		<div id="customerInformation">
 			<h2>Enter Customer Information</h2>
 			<div id="topRow">
@@ -34,15 +36,28 @@
 				<label for="powerAdapter">Power Adapter?</label>
 				<input id="powerAdapter" type="checkbox" v-model="powerCord">
 			</div>
+			<div id="timeInformation">
+				<label for="currentDate">Current Date</label>
+				<p id="currentDate">{{new Date().getDate()}}</p>
+				<label for="expectedDate">Expected Completion Date</label>
+				<input id="expectedDate" type="date">
+			</div>
 		</div>
 	</form>
+	</div>
 </template>
 
 <script>
-	export default {
+    import FormHeader from "./formHeader";
+
+    export default {
 		name: "checkin",
-		data: function () {
+        components: {FormHeader},
+        data: function () {
 			return {
+                //page data
+                title: "MorningSTAR",
+                subtitle: "HBC Computer Check-in",
 				//Customer Data
 				firstName: "",
 				lastName: "",
