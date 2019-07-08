@@ -1,6 +1,6 @@
 <template>
 	<div class="mt-2">
-		<form-header v-bind:card-subtitle="subtitle" v-bind:card-title="title"></form-header>
+		<form-header @submit="" v-bind:card-subtitle="subtitle" v-bind:card-title="title"></form-header>
 		<form autocapitalize="on" autocomplete="off" class="card" id="checkinForm">
 			<div id="customerInformation" class="m-2">
 				<h2 class="gsHeader">Apprentice Information</h2>
@@ -55,10 +55,12 @@
 
 <script>
     import FormHeader from "./formHeader";
+    import {mapState} from 'vuex';
 
     export default {
         name: "checkin",
         components: {FormHeader},
+	    computed: mapState([]),
         data: function () {
             return {
                 //page data
