@@ -56,6 +56,9 @@
 <script>
     import FormHeader from "./formHeader";
     import {mapState} from 'vuex';
+    import firebase from 'firebase/app'
+    import auth from 'firebase/auth'
+    import firestore from 'firebase/firestore'
 
     export default {
         name: "checkin",
@@ -92,7 +95,23 @@
                 powerCord: "",
 	            password: "",
             }
-        }
+        },
+	    methods: {
+		    sendToFirebase() {
+			    const firebaseConfig = {
+				    apiKey: "AIzaSyA6nzSzA7GKmVgWK4oVLubjgUziQBXZkY0",
+				    authDomain: "hbc-morningstar.firebaseapp.com",
+				    databaseURL: "https://hbc-morningstar.firebaseio.com",
+				    projectId: "hbc-morningstar",
+				    storageBucket: "hbc-morningstar.appspot.com",
+				    messagingSenderId: "39135870320",
+				    appId: "1:39135870320:web:71a47946b31a2b36"
+			    };
+			    firebase.initializeApp(firebaseConfig);
+			    const database = firebase.firestore;
+
+		    }
+	    }
     }
 </script>
 
