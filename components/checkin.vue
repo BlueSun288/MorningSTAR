@@ -1,7 +1,7 @@
 <template>
 	<div class="mt-2">
-		<form-header @submit="sendToFirebase" v-bind:card-subtitle="subtitle" v-bind:card-title="title"></form-header>
-		<form autocapitalize="on" autocomplete="off" class="card" id="checkinForm">
+		<form-header v-bind:card-subtitle="subtitle" v-bind:card-title="title"></form-header>
+		<form autocapitalize="on" @submit.prevent="sendToFirebase" autocomplete="off" class="card" id="checkinForm">
 			<div id="customerInformation" class="m-2">
 				<h2 class="gsHeader">Apprentice Information</h2>
 				<div id="topRow" class="block">
@@ -11,7 +11,7 @@
 				</div>
 				<div id="bottomRow" class="block">
 					<input id="address" placeholder="Customer Address" v-model="address" class="gsTextField focus:outline-none focus:border-gray-700">
-					<input id="phoneNumber" placeholder="Phone #" v-model="phone" class="gsTextField focus:outline-none focus:border-gray-700">
+					<input id="phoneNumber" placeholder="Phone #" v-model="phoneNumber" minlength="10" maxlength="11" class="gsTextField focus:outline-none focus:border-gray-700">
 					<input id="email" placeholder="Email address" v-model="email" class="gsTextField focus:outline-none focus:border-gray-700">
 				</div>
 			</div>
@@ -25,8 +25,8 @@
 							{{ MFGOptions.text }}
 						</option>
 					</select>
-					<input id="modelNumber" placeholder="Model #" type="text" class="gsTextField focus:outline-none focus:border-gray-700">
-					<input id="serialNumber" placeholder="Serial #" type="text" class="gsTextField focus:outline-none focus:border-gray-700">
+					<input id="modelNumber" placeholder="Model #" v-model="modelNumber" type="text" class="gsTextField focus:outline-none focus:border-gray-700">
+					<input id="serialNumber" placeholder="Serial #" v-model="serialNumber" type="text" class="gsTextField focus:outline-none focus:border-gray-700">
 				</div>
 			</div>
 			<div id="repairInformation" class="m-2">
@@ -52,15 +52,15 @@
 
 <script>
     import FormHeader from "./formHeader";
-    import {mapState} from 'vuex';
-    import firebase from 'firebase/app'
-    import auth from 'firebase/auth'
-    import firestore from 'firebase/firestore'
+    import firebase from 'firebase/app';
+    import 'firebase/firestore';
+    import 'firebase/auth';
+    import 'firebase/storage';
+    import 'firebase/firebase-functions'
 
     export default {
         name: "checkin",
         components: {FormHeader},
-	    computed: mapState([]),
         data: function () {
             return {
                 //page data
@@ -70,7 +70,7 @@
                 firstName: "",
                 lastName: "",
                 address: "",
-                phone: "",
+                phoneNumber: "",
                 account: "",
                 email: "",
                 //Computer Data
@@ -86,6 +86,8 @@
                     {text: "eMachine", value: "eMachine"},
                     {text: "Other", value: "Other"},
                 ],
+	            serialNumber: "",
+	            modelNumber: "",
                 //Repair Data
                 problemDescription: "",
                 solution: "",
@@ -106,23 +108,41 @@
 				    appId: "1:39135870320:web:71a47946b31a2b36"
 			    };
 			    firebase.initializeApp(firebaseConfig);
-			    const database = firebase.firestore;
+			    const database = firebase.firestore();
 
 			    let repair = this.buildDataObject();
 
-			    database.collection('repairs').add(data).then(function (docRef) {
-				    console.log("Wrote document with ID: " + docRef)
-			    });
+			    console.log(this.computerMFG);
+			    console.log(this.serialNumber);
+			    console.log(this.modelNumber);
 
-			    database.disconnect();
+			    let deviceInformation = {
+				    "Device MFG" : this.computerMFG,
+				    "Model #" : this.modelNumber,
+				    "Serial #" : this.serialNumber,
+			    };
+
+			    database.collection('repairs').add(repair).then(function (docRef) {
+				    console.log("Wrote document with ID: " + docRef.id);
+				    let myId = docRef.id;
+				    console.log(deviceInformation["Device MFG"]);
+				    database.collection('repairs').doc(myId).collection('Device Information').add(deviceInformation).then(function (docRef) {
+					    console.log("Wrote the device Information");
+				    });
+
+			    });
 
 		    },
 		    buildDataObject(){
 		    	if (this.powerCord === undefined){
 		    		this.powerCord = false;
 			    }
-		    	let d = new Date();
-		    	let currentDate = d.getDate();
+		    	let date = new Date();
+			    const monthNames = ["January", "February", "March", "April", "May", "June",
+				    "July", "August", "September", "October", "November", "December"
+			    ];
+			    let myDate = "Date: " + date.getDate() + "/" + monthNames[date.getMonth()]  + "/" + date.getFullYear();
+
 		    	let repair = {
 		    		"Customer Name" : this.firstName + " " + this.lastName,
 				    "Account #" : this.account,
@@ -133,12 +153,12 @@
 				    "Wizard Description of Issue" : this.solution,
 				    "AC Adapter?" : this.powerCord,
 				    "Password" : this.password,
-				    "Date Checked in" : currentDate,
+				    "Date Checked in" : myDate,
 				    "Expected Completion Date" : this.completionDate
 			    };
 
 		    	return repair;
-		    }
+		    },
 	    }
     }
 </script>
