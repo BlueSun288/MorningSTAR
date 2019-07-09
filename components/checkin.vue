@@ -1,6 +1,6 @@
 <template>
 	<div class="mt-2">
-		<form-header @submit="" v-bind:card-subtitle="subtitle" v-bind:card-title="title"></form-header>
+		<form-header @submit="sendToFirebase" v-bind:card-subtitle="subtitle" v-bind:card-title="title"></form-header>
 		<form autocapitalize="on" autocomplete="off" class="card" id="checkinForm">
 			<div id="customerInformation" class="m-2">
 				<h2 class="gsHeader">Apprentice Information</h2>
@@ -42,11 +42,8 @@
 			</div>
 			<div id="timeInformation">
 				<h2 class="gsHeader m-2">Repair Pickup</h2>
-				<label for="currentDate" class="font-bold inline">Current Date</label>
-				<p id="currentDate" class="inline">{{d = new Date(), d.getDate()}}</p>
-				<br>
 				<label for="expectedDate" class="inline font-bold">Expected Completion Date</label>
-				<input id="expectedDate" class="inline" type="date">
+				<input id="expectedDate" v-model="completionDate" class="inline" type="date">
 			</div>
 			<input type="submit" value="Submit" class="submitButton">
 		</form>
@@ -94,6 +91,7 @@
                 solution: "",
                 powerCord: "",
 	            password: "",
+	            completionDate: ""
             }
         },
 	    methods: {
@@ -110,6 +108,36 @@
 			    firebase.initializeApp(firebaseConfig);
 			    const database = firebase.firestore;
 
+			    let repair = this.buildDataObject();
+
+			    database.collection('repairs').add(data).then(function (docRef) {
+				    console.log("Wrote document with ID: " + docRef)
+			    });
+
+			    database.disconnect();
+
+		    },
+		    buildDataObject(){
+		    	if (this.powerCord === undefined){
+		    		this.powerCord = false;
+			    }
+		    	let d = new Date();
+		    	let currentDate = d.getDate();
+		    	let repair = {
+		    		"Customer Name" : this.firstName + " " + this.lastName,
+				    "Account #" : this.account,
+				    "Service Address" : this.address,
+				    "Phone #" : this.phoneNumber,
+				    "Email" : this.email,
+				    "Client Description of Issue" : this.problemDescription,
+				    "Wizard Description of Issue" : this.solution,
+				    "AC Adapter?" : this.powerCord,
+				    "Password" : this.password,
+				    "Date Checked in" : currentDate,
+				    "Expected Completion Date" : this.completionDate
+			    };
+
+		    	return repair;
 		    }
 	    }
     }
