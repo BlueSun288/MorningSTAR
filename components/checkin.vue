@@ -52,11 +52,7 @@
 
 <script>
     import FormHeader from "./formHeader";
-    import firebase from 'firebase/app';
-    import 'firebase/firestore';
-    import 'firebase/auth';
-    import 'firebase/storage';
-    import 'firebase/firebase-functions'
+    import firebase from '@/plugins/firebase'
 
     export default {
         name: "checkin",
@@ -96,20 +92,12 @@
 	            completionDate: ""
             }
         },
+	    mounted() {
+	    },
 	    methods: {
 		    sendToFirebase() {
-			    const firebaseConfig = {
-				    apiKey: "AIzaSyA6nzSzA7GKmVgWK4oVLubjgUziQBXZkY0",
-				    authDomain: "hbc-morningstar.firebaseapp.com",
-				    databaseURL: "https://hbc-morningstar.firebaseio.com",
-				    projectId: "hbc-morningstar",
-				    storageBucket: "hbc-morningstar.appspot.com",
-				    messagingSenderId: "39135870320",
-				    appId: "1:39135870320:web:71a47946b31a2b36"
-			    };
-			    firebase.initializeApp(firebaseConfig);
-			    const database = firebase.firestore();
 
+			    const database = firebase.firestore();
 			    let repair = this.buildDataObject();
 
 			    console.log(this.computerMFG);
@@ -129,7 +117,6 @@
 				    database.collection('repairs').doc(myId).collection('Device Information').add(deviceInformation).then(function (docRef) {
 					    console.log("Wrote the device Information");
 				    });
-
 			    });
 
 		    },
