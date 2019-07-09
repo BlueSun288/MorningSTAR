@@ -98,20 +98,15 @@
 		    sendToFirebase() {
 
 			    const database = firebase.firestore();
-			    let repair = this.buildDataObject();
-
-			    console.log(this.computerMFG);
-			    console.log(this.serialNumber);
-			    console.log(this.modelNumber);
+			    let repair = this.buildDataObject(); //just takes the entered information and puts it in the repair object
 
 			    let deviceInformation = {
-				    "Device MFG" : this.computerMFG,
+				    "Device MFG": this.computerMFG, //for some reason this doesn't work as a function call, so i'll declare it here
 				    "Model #" : this.modelNumber,
 				    "Serial #" : this.serialNumber,
 			    };
 
 			    database.collection('repairs').add(repair).then(function (docRef) {
-				    console.log("Wrote document with ID: " + docRef.id);
 				    let myId = docRef.id;
 				    console.log(deviceInformation["Device MFG"]);
 				    database.collection('repairs').doc(myId).collection('Device Information').add(deviceInformation).then(function (docRef) {
