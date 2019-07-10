@@ -1,15 +1,16 @@
 <template>
 	<div id="container">
-		<checkin></checkin>
+		<welcome></welcome>
 	</div>
 </template>
 
 <script>
 
 	import Checkin from "../components/checkin";
+	import Welcome from "../components/welcome";
 
 	export default {
-		components: {Checkin}
+		components: {Welcome, Checkin}
 	}
 </script>
 

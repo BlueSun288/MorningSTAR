@@ -43,7 +43,7 @@
 			<div id="timeInformation">
 				<h2 class="gsHeader m-2">Repair Pickup</h2>
 				<label for="expectedDate" class="inline font-bold">Expected Completion Date</label>
-				<input id="expectedDate" v-model="completionDate" class="inline" type="date">
+				<input class="inline" id="expectedDate" type="date" v-model="expectedCompletionDate">
 			</div>
 			<input type="submit" value="Submit" class="submitButton">
 		</form>
@@ -89,7 +89,7 @@
                 solution: "",
                 powerCord: "",
 	            password: "",
-	            completionDate: ""
+	            expectedCompletionDate: ""
             }
         },
 	    mounted() {
@@ -123,7 +123,7 @@
 			    const monthNames = ["January", "February", "March", "April", "May", "June",
 				    "July", "August", "September", "October", "November", "December"
 			    ];
-			    let myDate = "Date: " + date.getDate() + "/" + monthNames[date.getMonth()]  + "/" + date.getFullYear();
+			    let myDate = date.getDate() + "/" + monthNames[date.getMonth()] + "/" + date.getFullYear();
 
 		    	let repair = {
 		    		"Customer Name" : this.firstName + " " + this.lastName,
@@ -136,7 +136,8 @@
 				    "AC Adapter?" : this.powerCord,
 				    "Password" : this.password,
 				    "Date Checked in" : myDate,
-				    "Expected Completion Date" : this.completionDate
+				    "Expected Completion Date": this.expectedCompletionDate,
+				    "Repair Completed": null,
 			    };
 
 		    	return repair;

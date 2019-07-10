@@ -5,7 +5,7 @@
 			<div ref="repairList">
 
 			</div>
-			<input class="submitButton" type="submit" v-on:click="loadRepairListings()" value="Load Repairs">
+			<input class="submitButton" type="submit" v-on:click="loadRepairListings()" value="List All Repairs">
 		</div>
 	</div>
 </template>
@@ -33,21 +33,22 @@
 				let allRepairs = repairsRef.get().then(snapshot => {
 					snapshot.forEach(doc => {
 						console.log(doc.data());
-						this.appendToList(doc.data())
+						this.appendToList(doc.data(), doc.id)
 					});
 				}).catch(error => {
 					console.log("error getting documents ", error)
 				})
 			},
-			appendToList(repairEntry) {
+			appendToList(repairEntry, docID) {
 				let ComponentClass = Vue.extend(ListItem);
 				let instance = new ComponentClass({
 					propsData: {
 						customerName: repairEntry["Customer Name"],
 						accountNumber: repairEntry["Account #"],
 						checkinDate: repairEntry["Date Checked in"],
-						completionDate: repairEntry["Expected Completion Date"],
-						serviceAddress: repairEntry["Service Address"]
+						expectedCompletionDate: repairEntry["Expected Completion Date"],
+						serviceAddress: repairEntry["Service Address"],
+						serviceOrderNumber: docID
 					}
 				});
 
