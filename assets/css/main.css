@@ -1,16 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Rubik+Mono+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
+
+.card {
+	font-family: 'Open Sans', sans-serif;
+	@apply bg-white shadow-md w-2/3 mx-auto p-2 text-center
+}
+
+.listItemCard {
+	font-family: 'Open Sans', sans-serif;
+	@apply bg-white shadow-md w-2 / 3 mx-auto p-2 text-center m-2
+}
+
+.cardHeader {
+	font-family: 'Open Sans', sans-serif;
+	@apply text-left text-black p-4 bg-gray-300 w-2/3 mx-auto
+}
+
+.cardHeaderTitle {
+	@apply text-2xl font-bold
+}
+
+.cardHeaderSubtitle {
+	@apply font-bold text-gray-600
+}
+.submitButton{
+	@apply px-2 py-2 font-bold rounded bg-gray-500
+}
+.gsTextField{
+	@apply border-b-2 border-gray-400 px-2 m-2
+}
+.gsTextArea{
+	@apply border-b-2 border-gray-400 px-2 m-2 block mx-auto
+}
+.gsHeader{
+	@apply border-b-2 border-gray-500 font-bold m-2 text-xl
+}
+
+.gsNavbar {
+	background-color: rgb(49, 47, 47);
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.textInput{
-    @apply p-2 border-b-2 border-blue-400
-}
-.nextButton{
-    @apply block mx-auto text-center px-4 py-2 m-2 font-bold
-}
-.card{
-   @apply bg-white w-2/3 shadow-md
-}
-.cardHeader{
- @apply text-xl text-left px-2 py-2 bg-gray-400 font-bold
-}

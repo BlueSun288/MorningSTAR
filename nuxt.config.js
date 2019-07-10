@@ -1,3 +1,7 @@
+import PurgecssPlugin from 'purgecss-webpack-plugin'
+import glob from 'glob-all'
+import path from 'path'
+
 export default {
 	mode: 'universal',
 	/*
@@ -27,7 +31,12 @@ export default {
 	/*
 	** Plugins to load before mounting the App
 	*/
-	plugins: [],
+	render: {
+		maxAge: 600
+	},
+	plugins: [
+		{src: '@/plugins/firebase.js'}
+	],
 	/*
 	** Nuxt.js modules
 	*/
@@ -35,6 +44,7 @@ export default {
 		// Doc: https://axios.nuxtjs.org/usage
 		'@nuxtjs/axios',
 		'@nuxtjs/pwa',
+		'nuxt-compress'
 	],
 	/*
 	** Axios module configuration
@@ -54,6 +64,19 @@ export default {
 		** You can extend webpack config here
 		*/
 		extend(config, ctx) {
-		}
+			// Remove unused CSS using purgecss. See https://github.com/FullHuman/purgecss
+			// for more information about purgecss.
+			config.plugins.push(
+				new PurgecssPlugin({
+					paths: glob.sync([
+						path.join(__dirname, './pages/**/*.vue'),
+						path.join(__dirname, './layouts/**/*.vue'),
+						path.join(__dirname, './components/**/*.vue')
+					]),
+					whitelist: ['html', 'body']
+				})
+			)
+		},
+		extractCSS: true
 	}
 }
