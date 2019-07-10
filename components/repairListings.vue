@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="mt-2">
 		<form-header :card-subtitle="subtitle" :card-title="title"></form-header>
 		<div class="card">
 			<div ref="repairList">
