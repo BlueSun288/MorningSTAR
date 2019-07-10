@@ -4,7 +4,7 @@
 		<ul class="">
 			<li><b>Account #:</b> {{accountNumber}}</li>
 			<li><b>Service Address:</b>{{serviceAddress}}</li>
-			<li><b>Check-in Date:</b>{{checkinDateD}}</li>
+			<li><b>Check-in Date:</b>{{checkinDate}}</li>
 			<li><b>Expected Completion Date:</b>{{completionDate}}</li>
 		</ul>
 	</div>
