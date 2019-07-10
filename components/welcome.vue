@@ -1,7 +1,6 @@
 <template>
 	<div class="text-center mt-2">
-		<h1 class="text-3xl">MorningSTAR</h1>
-		<h2>The unofficial HBCI device repair Check-In site</h2>
+		<img alt="MorningSTAR" class="mx-auto" src="@/assets/logos/morningStar1.svg">
 	</div>
 </template>
 
