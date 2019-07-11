@@ -1,6 +1,8 @@
 import PurgecssPlugin from 'purgecss-webpack-plugin'
 import glob from 'glob-all'
 import path from 'path'
+import purgecss from '@fullhuman/postcss-purgecss'
+
 
 export default {
 	mode: 'universal',
@@ -56,27 +58,12 @@ export default {
 	*/
 	build: {
 		postcss: {
-			plugins: {
-				tailwindcss: './tailwind.config.js'
-			}
+			plugins: {tailwindcss: './tailwind.config.js'}
 		},
 		/*
 		** You can extend webpack config here
 		*/
 		extend(config, ctx) {
-			// Remove unused CSS using purgecss. See https://github.com/FullHuman/purgecss
-			// for more information about purgecss.
-			config.plugins.push(
-				new PurgecssPlugin({
-					paths: glob.sync([
-						path.join(__dirname, './pages/**/*.vue'),
-						path.join(__dirname, './layouts/**/*.vue'),
-						path.join(__dirname, './components/**/*.vue')
-					]),
-					whitelist: ['html', 'body']
-				})
-			)
 		},
-		extractCSS: true
 	}
 }

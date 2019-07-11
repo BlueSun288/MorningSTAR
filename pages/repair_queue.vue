@@ -6,7 +6,7 @@
 	import RepairListings from "../components/repairListings";
 
 	export default {
-		name: "admin.vue",
+		name: "repair_queue",
 		components: {RepairListings}
 	}
 </script>

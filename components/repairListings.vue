@@ -1,11 +1,18 @@
 <template>
 	<div class="mt-2">
 		<form-header :card-subtitle="subtitle" :card-title="title"></form-header>
-		<div class="card">
+		<div class="text-center">
 			<div ref="repairList">
 
 			</div>
-			<input class="submitButton" type="submit" v-on:click="loadRepairListings()" value="List All Repairs">
+			<input class="submitButton hover:shadow" type="submit" v-on:click="loadRepairListings()"
+			       value="List All Repairs">
+			<input class="submitButton hover:shadow" type="submit" v-on:click="makeListInvisible()"
+			       value="Hide Repair Queue">
+			<input class="submitButton" type="submit" v-on:click="openWorkflow()" value="Testing workflow">
+			<div ref="workflowDiv">
+
+			</div>
 		</div>
 	</div>
 </template>
@@ -15,21 +22,25 @@
 	import firebase from "@/plugins/firebase"
 	import ListItem from './listItem'
 	import Vue from 'vue'
+	import Workflow from "./workflow";
 
 	export default {
 		name: "repairListings",
-		components: {ListItem, FormHeader},
+		components: {Workflow, ListItem, FormHeader},
 		data: function () {
 			return {
 				title: "Repair Listings",
-				subtitle: "All repairs are listed here"
+				subtitle: "All repairs are listed here",
+				selectedSONumber: String,
+				formInvisible: true,
+				listInvisible: false
 			}
 		},
 
 		methods: {
 			loadRepairListings() {
 				let database = firebase.firestore();
-				let repairsRef = database.collection('repairs');
+				let repairsRef = database.collection('In Progress Repairs');
 				let allRepairs = repairsRef.get().then(snapshot => {
 					snapshot.forEach(doc => {
 						console.log(doc.data());
@@ -54,6 +65,35 @@
 
 				instance.$mount();
 				this.$refs.repairList.appendChild(instance.$el);
+			},
+			makeListInvisible() {
+				this.$refs.repairList.style.visibility = 'hidden'
+			},
+			openWorkflow(docID) {
+				console.info("Attempting to Open Workflow...");
+				let database = firebase.firestore();
+				let repairRef = database.collection('In Progress Repairs').doc(docID);
+				let getDoc = repairRef.get().then(doc => {
+					if (!doc.exists) {
+						console.log("Doc doesn't exist");
+					} else {
+						console.log(doc.data());
+						this.appendWorkflowData(doc.data());
+					}
+				})
+					.catch(error => {
+						console.log("Error Getting Document", error);
+					});
+			},
+			appendWorkflowData(data) {
+				let ComponentClass = Vue.extend(Workflow);
+				let instance = new ComponentClass({
+					propsData: {
+						customerName: data["Customer Name"]
+					}
+				});
+				instance.$mount();
+				this.$refs.workflowDiv.appendChild(instance.$el);
 			}
 		}
 	}
