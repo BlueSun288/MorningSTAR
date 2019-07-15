@@ -1,22 +1,21 @@
 <template>
 	<div class="mt-2">
-		<form-header :card-subtitle="subtitle" :card-title="title"></form-header>
+		<form-header v-bind:card-subtitle="subtitle" v-bind:card-title="title"></form-header>
 		<repair-listings></repair-listings>
 	</div>
-
 </template>
 
 <script>
+	import FormHeader from "../components/formHeader";
 	import RepairListings from "../components/repairListings";
-	import FormHeader from "../components/formHeader"
 
 	export default {
-		name: "repair_queue",
+		name: "repair_checkout",
 		components: {RepairListings, FormHeader},
 		data: function () {
 			return {
-				title: "Repair Listings",
-				subtitle: "All repairs are listed here",
+				title: "Checkout",
+				subtitle: "Select a SO to check out"
 			}
 		}
 	}

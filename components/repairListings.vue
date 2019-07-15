@@ -1,8 +1,7 @@
 <template>
 	<div class="mt-2">
-		<form-header :card-subtitle="subtitle" :card-title="title"></form-header>
 		<div class="text-center">
-			<div ref="repairList">
+			<div ref="repairList" v-on:getSONumber="openWorkflow($event)">
 
 			</div>
 			<input class="submitButton hover:shadow" type="submit" v-on:click="loadRepairListings()"
@@ -27,10 +26,9 @@
 	export default {
 		name: "repairListings",
 		components: {Workflow, ListItem, FormHeader},
+		props: ['collectionName'],
 		data: function () {
 			return {
-				title: "Repair Listings",
-				subtitle: "All repairs are listed here",
 				selectedSONumber: String,
 				formInvisible: true,
 				listInvisible: false
@@ -69,8 +67,8 @@
 			makeListInvisible() {
 				this.$refs.repairList.style.visibility = 'hidden'
 			},
-			openWorkflow(docID) {
-				console.info("Attempting to Open Workflow...");
+			openWorkflow(event) {
+				console.log("Attempting to Open Workflow...");
 				let database = firebase.firestore();
 				let repairRef = database.collection('In Progress Repairs').doc(docID);
 				let getDoc = repairRef.get().then(doc => {

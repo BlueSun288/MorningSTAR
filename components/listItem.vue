@@ -20,10 +20,11 @@
 		},
 		methods: {
 			getSONumber() {
+				console.log("Sending Number");
 				let temp = this.serviceOrderNumber.toLowerCase();
 				//console.log(this.serviceOrderNumber);
-				this.$emit("serviceOrderNumber", this.serviceOrderNumber);
-				console.log("Emitted SO number: " + this.serviceOrderNumber)
+				this.$emit("getSONumber", this.serviceOrderNumber);
+				//console.log("Emitted SO number: " + this.serviceOrderNumber)
 			}
 		}
 	}
