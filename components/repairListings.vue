@@ -1,13 +1,12 @@
 <template>
 	<div class="mt-2">
 		<div class="text-center">
-			<div ref="repairList" v-on:getSONumber="openWorkflow($event)" v-show=listInvisible>
+			<div ref="repairList" v-on:getSONumber="openWorkflow($event)" v-show=!listInvisible>
 
 			</div>
-			<!-- ADDED VUE-WAY OF HIDING -->
-			<input :click="listInvisible = !listInvisible" class="submitButton hover:shadow" type="submit"
-			       value="Hide Repair Queue">
-			<input :click="openWorkflow()" class="submitButton" type="submit" value="Testing workflow">
+			<!-- ADDED VUE-WAY OF HIDING -->			 
+			<button @click="listInvisible = !listInvisible" class="submitButton hover:shadow">Hide Repair Queue</button>
+			<input @click="openWorkflow()" class="submitButton" type="submit" value="Testing workflow">
 			<div ref="workflowDiv">
 
 			</div>
