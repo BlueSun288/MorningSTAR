@@ -1,14 +1,13 @@
 <template>
 	<div class="mt-2">
 		<div class="text-center">
-			<div ref="repairList" v-on:getSONumber="openWorkflow($event)">
+			<div ref="repairList" v-on:getSONumber="openWorkflow($event)" v-show=listInvisible>
 
 			</div>
-			<input class="submitButton hover:shadow" type="submit" v-on:click="loadRepairListings()"
-			       value="List All Repairs">
-			<input class="submitButton hover:shadow" type="submit" v-on:click="makeListInvisible()"
+			<!-- ADDED VUE-WAY OF HIDING -->
+			<input :click="listInvisible = !listInvisible" class="submitButton hover:shadow" type="submit"
 			       value="Hide Repair Queue">
-			<input class="submitButton" type="submit" v-on:click="openWorkflow()" value="Testing workflow">
+			<input :click="openWorkflow()" class="submitButton" type="submit" value="Testing workflow">
 			<div ref="workflowDiv">
 
 			</div>
@@ -35,6 +34,10 @@
 			}
 		},
 
+		// CHECK THIS 
+		mounted() {
+			this.loadRepairListings();
+		},
 		methods: {
 			loadRepairListings() {
 				let database = firebase.firestore();
@@ -64,24 +67,8 @@
 				instance.$mount();
 				this.$refs.repairList.appendChild(instance.$el);
 			},
-			makeListInvisible() {
-				this.$refs.repairList.style.visibility = 'hidden'
-			},
 			openWorkflow(event) {
 				console.log("Attempting to Open Workflow...");
-				let database = firebase.firestore();
-				let repairRef = database.collection('In Progress Repairs').doc(docID);
-				let getDoc = repairRef.get().then(doc => {
-					if (!doc.exists) {
-						console.log("Doc doesn't exist");
-					} else {
-						console.log(doc.data());
-						this.appendWorkflowData(doc.data());
-					}
-				})
-					.catch(error => {
-						console.log("Error Getting Document", error);
-					});
 			},
 			appendWorkflowData(data) {
 				let ComponentClass = Vue.extend(Workflow);
