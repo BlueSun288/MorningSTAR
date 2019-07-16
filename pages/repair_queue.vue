@@ -14,8 +14,15 @@
 		name: "repair_queue",
 		components: {RepairListings, FormHeader},
 		async asyncData() {
-			let repairData = [];
-			let repairID = [];
+			let repairData = [
+				{
+					serviceOrderNumber: "",
+					serviceOrderData: {
+						customerName: "",
+						account: "",
+					}
+				}
+			];
 
 			await firebase
 				.firestore()
