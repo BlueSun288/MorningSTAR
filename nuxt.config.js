@@ -1,7 +1,5 @@
-import PurgecssPlugin from 'purgecss-webpack-plugin'
 import glob from 'glob-all'
 import path from 'path'
-import purgecss from '@fullhuman/postcss-purgecss'
 
 
 export default {
@@ -19,9 +17,9 @@ export default {
         name: "description",
         content: process.env.npm_package_description || ""
       },
-      {name: "theme-color", content:"#FF5722"}
+      { name: "theme-color", content: "#FF5722" }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.png" }],
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.png" }]
   },
   /*
    ** Customize the progress-bar color
@@ -45,30 +43,30 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/axios",
     "@nuxtjs/pwa",
-    "nuxt-compress"
+    "nuxt-compress",
+    "nuxt-purgecss"
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
   axios: {},
-//   DYNAMIC ROUTES
-//   generate: {
-//     async routes() {
-//       const { data: repairs } = await api.get("YOUR API/FIRESTORE DB HERE");
-//       return repairs.map(repair => `/serviceorders/${repair.serviceOrderNumber}`);
-//     }
-//   },
+  //   DYNAMIC ROUTES
+  //   generate: {
+  //     async routes() {
+  //       const { data: repairs } = await api.get("YOUR API/FIRESTORE DB HERE");
+  //       return repairs.map(repair => `/serviceorders/${repair.serviceOrderNumber}`);
+  //     }
+  //   },
   /*
    ** Build configuration
    */
   build: {
     postcss: {
       plugins: { tailwindcss: "./tailwind.config.js" }
-    },
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {}
+    }
+  },
+  purgeCSS: {
+    mode: 'postcss'
   }
 };
