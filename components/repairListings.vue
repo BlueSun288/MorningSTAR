@@ -26,8 +26,6 @@
         v-else
         class="submitButton hover:shadow"
       >Hide Repair Queue</button>
-      <input @click="openWorkflow()" class="submitButton" type="submit" value="Testing workflow" />
-      <div ref="workflowDiv"></div>
     </div>
   </div>
 </template>
@@ -42,7 +40,6 @@ import Workflow from "./workflow";
 export default {
   name: "repairListings",
   components: { Workflow, ListItem, FormHeader },
-  props: ["collectionName", "repairID"],
   data: function() {
     return {
       selectedSONumber: String,
@@ -57,51 +54,7 @@ export default {
   },
   props: ["repairData", "repairID"],
 
-  methods: {
-    // loadRepairListings() {
-    //   let database = firebase.firestore();
-    //   let repairsRef = database.collection("In Progress Repairs");
-    //   let allRepairs = repairsRef
-    //     .get()
-    //     .then(snapshot => {
-    //       snapshot.forEach(doc => {
-    //         console.log(doc.data());
-    //         // this.appendToList(doc.data(), doc.id);
-    //       });
-    //     })
-    //     .catch(error => {
-    //       console.log("error getting documents ", error);
-    //     });
-    // },
-    // appendToList(repairEntry, docID) {
-    //   let ComponentClass = Vue.extend(ListItem);
-    //   let instance = new ComponentClass({
-    //     propsData: {
-    //       customerName: repairEntry["Customer Name"],
-    //       accountNumber: repairEntry["Account #"],
-    //       checkinDate: repairEntry["Date Checked in"],
-    //       expectedCompletionDate: repairEntry["Expected Completion Date"],
-    //       serviceAddress: repairEntry["Service Address"],
-    //       serviceOrderNumber: docID
-    //     }
-    //   });
-    //   instance.$mount();
-    //   this.$refs.repairList.appendChild(instance.$el);
-    // },
-    // openWorkflow(event) {
-    //   console.log("Attempting to Open Workflow...");
-    // },
-    // appendWorkflowData(data) {
-    //   let ComponentClass = Vue.extend(Workflow);
-    //   let instance = new ComponentClass({
-    //     propsData: {
-    //       customerName: data["Customer Name"]
-    //     }
-    //   });
-    //   instance.$mount();
-    //   this.$refs.workflowDiv.appendChild(instance.$el);
-    // }
-  }
+  methods: {}
 };
 </script>
 

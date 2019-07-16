@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <h1 class="mt-2">Service Order Stuff</h1>
+  <div class="mt-2">
+    <form-header :card-subtitle="subtitle" :card-title="title"></form-header>
   </div>
 </template>
 
 <script>
 import firebase from "@/plugins/firebase";
+import FormHeader from "../../components/formHeader";
 
 export default {
+  components: {FormHeader},
   async asyncData() {
     let repairData = [];
     let repairID = [];
@@ -28,7 +30,11 @@ export default {
     // 	  repairID
     //     };
   },
-
+  data: function () {
+    return {
+      title: "Service Order Overview",
+    }
+  },
   head() {
     return {
       // title: `${this.serviceOrderNumber}`
