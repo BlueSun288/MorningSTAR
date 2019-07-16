@@ -18,15 +18,7 @@
 }
 
 .listItemCard {
-	font-family: 'Open Sans', sans-serif;
-	background-color: #fff;
-	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-	width: 66.666667%;
-	padding: 0.5rem;
-	text-align: left;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 0.5rem;
+	@apply font-opensans bg-white w-2 / 3 p-2 text-left m-2 mx-auto border border-gray-600;
 }
 
 .cardHeader {
