@@ -1,15 +1,15 @@
 <template>
 	<div class="text-center mt-2">
-		<img alt="MorningSTAR" class="mx-auto" src="@/assets/logos/morningStar1.svg">
+		<Morning-Star-Logo class="mx-auto text-navbargray"/>
 	</div>
 </template>
 
 <script>
+import {MorningStarLogo} from '~/components/icons'
 	export default {
+		components: {
+			MorningStarLogo
+		},
 		name: "welcome"
 	}
 </script>
-
-<style scoped>
-
-</style>
