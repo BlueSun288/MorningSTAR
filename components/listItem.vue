@@ -1,5 +1,5 @@
 <template>
-	<div class="listItemCard mx-auto text-left hover:shadow-lg hover:cursor-pointer" v-on:click="getSONumber()">
+	<div class="listItemCard" v-on:click="getSONumber()">
 		<h1 class="font-bold underline">{{customerName}}</h1>
 		<nuxt-link class="font-italic underline" :to="{ path:`/serviceorders/${serviceOrderNumber}` }">
 			<h2 class="my-2 text-grey-darkest text-lg lg:text-xl">SO: {{ serviceOrderNumber }}</h2>

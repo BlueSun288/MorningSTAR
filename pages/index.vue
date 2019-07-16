@@ -13,9 +13,3 @@
 		components: {Welcome, Checkin}
 	}
 </script>
-
-<style>
-	html {
-		background-color: #FF5722;
-	}
-</style>
