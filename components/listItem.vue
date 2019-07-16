@@ -1,7 +1,9 @@
 <template>
 	<div class="listItemCard mx-auto text-left hover:shadow-lg hover:cursor-pointer" v-on:click="getSONumber()">
 		<h1 class="font-bold underline">{{customerName}}</h1>
-		<h2 class="font-italic underline"><b>SO:</b>{{serviceOrderNumber}}</h2>
+		<nuxt-link class="font-italic underline" :to="{ path:`/serviceorders/${serviceOrderNumber}` }">
+			<h2 class="my-2 text-grey-darkest text-lg lg:text-xl">SO: {{ serviceOrderNumber }}</h2>
+		</nuxt-link>
 		<ul class="">
 			<li><b>Account #:</b> {{accountNumber}}</li>
 			<li><b>Service Address:</b> {{serviceAddress}}</li>
@@ -14,7 +16,14 @@
 <script>
 	export default {
 		name: "listItem",
-		props: ['customerName', 'accountNumber', 'checkinDate', 'expectedCompletionDate', 'serviceAddress', 'serviceOrderNumber'],
+		props: [
+			'customerName', 
+			'accountNumber', 
+			'checkinDate', 
+			'expectedCompletionDate', 
+			'serviceAddress', 
+			'serviceOrderNumber'
+			],
 		data: function () {
 			return {}
 		},

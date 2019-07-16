@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "Webapp for PC check in",
   "author": "varangian111",
+  "contributors": [
+    {
+      "name": "Colin Travis",
+      "email": "colin@colintravis.com",
+      "url": "https://colintravis.com"
+    }
+  ],
   "private": true,
   "scripts": {
     "dev": "nuxt",
