@@ -1,53 +1,54 @@
 <template>
-	<div class="mt-2">
+  <div class="mt-2">
     <form-header :card-subtitle="subtitle" :card-title="title"></form-header>
-    <div id="repairList"></div>
+    <div id="repairList">
+      <queue-item :key="index" v-for="(repairs, index) in async.repairList">{{async.repairList.docID}}</queue-item>
+    </div>
   </div>
 
 </template>
 
 <script>
 	import FormHeader from "../components/formHeader";
-  import firebase from '@/plugins/firebase'
-  import ListItem from '../components/queueItem'
-  import Vue from 'vue'
+	import firebase from '@/plugins/firebase'
+  import QueueItem from "../components/queueItem";
 
-  export default {
+	export default {
 		name: "repair_queue",
-	  components: {FormHeader},
-	  data: function () {
-		  return {
-			  title: "Repair Queue",
-			  subtitle: "Ongoing Repairs"
-		  }
-	  },
-      created(){
-			this.fetchRepairs();
-      },
-	  methods :{
-			fetchRepairs(){
-				const database = firebase.firestore();
-				const repairsRef = database.collection('In Progress Repairs');
-		    let allRepairs = repairsRef.get().then(snapshot => {
-			  snapshot.forEach(doc => {
-				  console.log(doc.data());
-				  this.appendToList(doc.data(), doc.id)
-			  });
-		  }).catch(error => {
-			  console.log("error getting documents ", error)
-		  })
-      },
-	    appendToList(repairEntry, docID) {
-		    let ComponentClass = Vue.extend(ListItem);
-		    let instance = new ComponentClass({
-			    propsData: {repairEntry}
-		    });
-		    instance.$mount();
-		    this.$refs.repairList.appendChild(instance.$el);
-	    }
+		components: {QueueItem, FormHeader},
+      async asyncData(){
+			let repairList = [];
 
-    }
-  }
+	      await firebase
+		      .firestore()
+		      .collection("In Progress Repairs")
+		      .get()
+		      .then(querySnapshot => {
+			      querySnapshot.forEach(doc => {
+			      	repairList.push(
+                  {
+	                    repairID : doc.id,
+                      repairData : doc.data()
+                  }
+              )
+			      });
+		      });
+	      return {
+	      	repairList
+	      };
+      },
+		data: function () {
+			return {
+				title: "Repair Queue",
+				subtitle: "Ongoing Repairs",
+			}
+		},
+		methods: {
+			createList(){
+
+      }
+		}
+	}
 </script>
 
 <style scoped>
