@@ -1,8 +1,13 @@
 <template>
   <div class="mt-2">
     <form-header :card-subtitle="subtitle" :card-title="title"></form-header>
-    <div id="repairList">
-      <queue-item :key="index" v-for="(repairs, index) in async.repairList">{{async.repairList.docID}}</queue-item>
+    <div id="repairs">
+      <queue-item :key="key" v-for="(repair, key) in repairList"
+                  :repairID="repairList[key]['repairID']"
+                  :repair-data="repairList[key]['repairData']"
+      >
+
+      </queue-item>
     </div>
   </div>
 
@@ -41,6 +46,7 @@
 			return {
 				title: "Repair Queue",
 				subtitle: "Ongoing Repairs",
+          repairList: {},
 			}
 		},
 		methods: {

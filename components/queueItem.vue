@@ -1,7 +1,12 @@
 <template>
-  <div class="card">
-    <ul>
-      <li>{{docID}}</li>
+  <div class="card m-2 hover:text-orange-800">
+    <ul class="text-left">
+      <li class="font-bold">Repair ID : {{repairID}}</li>
+      <li>Account #: {{repairData['Account #']}}</li>
+      <li>Customer Name: {{repairData['Customer Name']}}</li>
+      <li>Check in date: {{repairData['11/July/2019']}}</li>
+      <li>Phone Number : {{repairData['Phone #']}}</li>
+      <li>Wizard Description of Issue: {{repairData['Wizard Description of Issue']}}</li>
     </ul>
   </div>
 </template>
@@ -9,19 +14,12 @@
 <script>
 	export default {
 		name: "queueItem",
-      created(){
-			this.printLog();
-      },
-		props: {
-			docID: String
-	},
+		props: ['repairID', 'repairData'],
 		data: function () {
 			return {
 			}
 		},
       methods : {
-			printLog(){
-          }
       }
 	}
 </script>
