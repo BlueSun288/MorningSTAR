@@ -41,6 +41,9 @@
   font-weight: 700;
   color: #718096
 }
+.navbar-link{
+  @apply p-2 bg-gray-600 rounded
+}
 
 .submitButton{
   padding-left: 0.5rem;
