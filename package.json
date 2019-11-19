@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "Webapp for PC check in",
   "author": "varangian111",
+  "contributors": [
+    {
+      "name": "Colin Travis",
+      "email": "colin@colintravis.com",
+      "url": "https://colintravis.com"
+    }
+  ],
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -22,7 +29,7 @@
     "mini-css-extract-plugin": "^0.7.0",
     "nodemon": "^1.18.9",
     "nuxt-compress": "^1.0.2",
-    "purgecss-webpack-plugin": "^1.5.0",
+    "nuxt-purgecss": "^0.2.1",
     "tailwindcss": "^1.0.0"
   }
 }

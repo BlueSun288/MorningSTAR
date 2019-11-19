@@ -1,16 +1,20 @@
 <template>
-	<div class="py-4 px-4 gsNavbar text-white text-center">
-		<nuxt-link class="hover:font-bold hover:bg-gray-700 py-4 px-2" to="/">Home</nuxt-link>
-		<nuxt-link class="hover:font-bold hover:bg-gray-700 py-4 px-2" to="/newCheckin">Device Check-In</nuxt-link>
-		<nuxt-link class="hover:font-bold hover:bg-gray-700 py-4 px-2" to="/quickRepair">Quick Fix</nuxt-link>
-		<nuxt-link class="hover:font-bold hover:bg-gray-700 py-4 px-2" to="/checkinList">List Active Repairs</nuxt-link>
+	<div class="py-4 px-4 bg-navbargray text-white text-center">
+		<nuxt-link class="hover:font-bold hover:bg-gray-700 navbar-link" to="/">Home</nuxt-link>
+		<nuxt-link class="hover:font-bold hover:bg-gray-700 navbar-link" to="/new_repair">Device Check-In</nuxt-link>
+		<nuxt-link class="hover:font-bold hover:bg-gray-700 navbar-link" to="/quick_repair">Quick Fix</nuxt-link>
+		<nuxt-link class="hover:font-bold hover:bg-gray-700 navbar-link" to="/repair_queue">Repair Queue</nuxt-link>
+		<nuxt-link class="hover:font-bold hover:bg-gray-700 navbar-link" to="/repair_checkout">Check-Out</nuxt-link>
+    <search class="inline-flex"></search>
 	</div>
 </template>
 
 <script>
-	export default {
-		name: "navbar"
-	}
+	import Search from "./search";
+  export default {
+		name: "navbar",
+	  components: {Search}
+  }
 </script>
 
 <style scoped>

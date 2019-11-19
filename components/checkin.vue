@@ -106,10 +106,10 @@
 				    "Serial #" : this.serialNumber,
 			    };
 
-			    database.collection('repairs').add(repair).then(function (docRef) {
+			    database.collection('In Progress Repairs').add(repair).then(function (docRef) {
 				    let myId = docRef.id;
 				    console.log(deviceInformation["Device MFG"]);
-				    database.collection('repairs').doc(myId).collection('Device Information').add(deviceInformation).then(function (docRef) {
+				    database.collection('In Progress Repairs').doc(myId).collection('Device Information').add(deviceInformation).then(function (docRef) {
 					    console.log("Wrote the device Information");
 				    });
 			    });

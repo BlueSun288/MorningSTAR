@@ -1,13 +1,13 @@
 <template>
 	<div>
 		<navbar></navbar>
+		<h1></h1>
 		<nuxt/>
 	</div>
 </template>
 
 <style>
 	html {
-		background-color: #FF5722;
 		font-size: 16px;
 		word-spacing: 1px;
 		-ms-text-size-adjust: 100%;
