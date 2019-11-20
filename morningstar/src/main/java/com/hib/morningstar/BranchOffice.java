@@ -8,9 +8,9 @@ public class BranchOffice {
 	@Id
 	private String branchOfficeID;
 	private String branchName;
-	private Address branchAddress;
+	private String branchAddress;
 
-	public BranchOffice(String branchOfficeID, String branchName, Address branchAddress) {
+	public BranchOffice(String branchOfficeID, String branchName, String branchAddress) {
 		this.branchOfficeID = branchOfficeID;
 		this.branchName = branchName;
 		this.branchAddress = branchAddress;
@@ -36,11 +36,11 @@ public class BranchOffice {
 		this.branchName = branchName;
 	}
 
-	public Address getBranchAddress() {
+	public String getBranchAddress() {
 		return branchAddress;
 	}
 
-	public void setBranchAddress(Address branchAddress) {
+	public void setBranchAddress(String branchAddress) {
 		this.branchAddress = branchAddress;
 	}
 }
