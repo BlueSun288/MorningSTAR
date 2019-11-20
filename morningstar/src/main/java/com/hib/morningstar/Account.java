@@ -6,12 +6,12 @@ import javax.persistence.Id;
 @Entity
 public class Account {
 	@Id
-	private int accountId;		//Unique Identifier
+	private String accountId;		//Unique Identifier
 	private String type;		//Residential or Business
 	private String business;	//If type == business then name of business otherwise null
 	private String address;		//Address
 	
-	public Account(int newID, String newType, String newBusiness, String newAddress ) {
+	public Account(String newID, String newType, String newBusiness, String newAddress ) {
 		accountId = newID;
 		type = newType;
 		address = newAddress;
@@ -23,10 +23,10 @@ public class Account {
 		}
 	}
 	
-	public int getAccountId() {
+	public String getAccountId() {
 		return accountId;
 	}
-	public void setAccountId(int accountId) {
+	public void setAccountId(String accountId) {
 		this.accountId = accountId;
 	}
 	public String getType() {
