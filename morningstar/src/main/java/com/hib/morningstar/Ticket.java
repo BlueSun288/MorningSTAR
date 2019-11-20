@@ -7,16 +7,16 @@ import java.time.Instant;
 @Entity
 public class Ticket {
 	@Id
-	private String ticketId;
-	private String accountId;
-	private String contactId;
-	private String service;
-	private String status;
-	private String startDate;
-	private String timeSpent;
-	private double priceRate;
-	private String branchOfficeId;
-	private String technicianId;
+	private String ticketId;		//Unique identifier. Cannot be changed
+	private String accountId;		//id of associated account. Can be changed
+	private String contactId;		//id of associated contact on account. Can be changed
+	private String service;			//Type of service 
+	private String status;			//Status of ticket
+	private String startDate;		//Date when ticket was created
+	private String timeSpent;		//Time spent 
+	private double priceRate;		//Rate client pays
+	private String branchOfficeId;	//ID ticket was created at and any asset needs to be returned to
+	private String technicianId;	//ID of tech currently working on ticket
 	
 	public Ticket(String ticketId, String accountId, String contactId, String service, String status, String timeSpent,
 			double priceRate, String branchOfficeId, String technicianId) {
