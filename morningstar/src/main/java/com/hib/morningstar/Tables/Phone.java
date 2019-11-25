@@ -1,10 +1,15 @@
-package com.hib.morningstar;
+package com.hib.morningstar.Tables;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.hib.morningstar.App;
+
 @Entity
-public class Phone {
+public class Phone implements HibernateObject{
 	@Id
 	private String contactID;
 	private String phoneNumber;
@@ -15,7 +20,7 @@ public class Phone {
 	}
 
 	public Phone() {
-
+		super();
 	}
 
 	public String getContactID() {
@@ -32,5 +37,12 @@ public class Phone {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	
+	public void save() {	//Saves this Ticket
+		Session ses = App.createSession();
+		Transaction tx = ses.beginTransaction();
+    	ses.save(this);
+    	tx.commit();
 	}
 }

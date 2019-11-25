@@ -1,11 +1,20 @@
-package com.hib.morningstar;
+package com.hib.morningstar.Tables;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.json.simple.JSONObject;
+
+import com.hib.morningstar.App;
+
 @Entity
-public class Account {
+public class Account implements HibernateObject{
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String accountId;		//Unique Identifier
 	private String type;		//Residential or Business
 	private String business;	//If type == business then name of business otherwise null
@@ -23,6 +32,23 @@ public class Account {
 		}
 	}
 	
+	public Account() {
+		super();
+	}
+	
+	public Account(JSONObject nAc) {
+		accountId = (String) nAc.get("accountid");
+		type = (String) nAc.get("type");
+		address = (String) nAc.get("address");
+		
+		if(type == "Residential") {
+			business = null;
+		}else {
+			business = (String) nAc.get("business");
+		}
+
+	}
+
 	public String getAccountId() {
 		return accountId;
 	}
@@ -48,5 +74,11 @@ public class Account {
 		this.address = address;
 	}
 	
+	public void save() {	//Saves this Ticket
+		Session ses = App.createSession();
+		Transaction tx = ses.beginTransaction();
+    	ses.save(this);
+    	tx.commit();
+	}
 	
 }

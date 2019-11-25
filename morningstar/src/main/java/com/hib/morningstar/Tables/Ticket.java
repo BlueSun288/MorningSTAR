@@ -1,12 +1,19 @@
-package com.hib.morningstar;
+package com.hib.morningstar.Tables;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import java.time.Instant;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.json.simple.JSONObject;
+import com.hib.morningstar.App;
+
 @Entity
-public class Ticket {
+public class Ticket implements HibernateObject{
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String ticketId;		//Unique identifier. Cannot be changed
 	private String accountId;		//id of associated account. Can be changed
 	private String contactId;		//id of associated contact on account. Can be changed
@@ -18,20 +25,45 @@ public class Ticket {
 	private String branchOfficeId;	//ID ticket was created at and any asset needs to be returned to
 	private String technicianId;	//ID of tech currently working on ticket
 	
-	public Ticket(String ticketId, String accountId, String contactId, String service, String status, String timeSpent,
-			double priceRate, String branchOfficeId, String technicianId) {
+	public Ticket() {
 		super();
-		this.ticketId = ticketId;
+	}
+	
+	public Ticket(String accountId, String contactId, String service, String status,
+			String branchOfficeId, String technicianId) {
+		super();
+		
 		this.accountId = accountId;
 		this.contactId = contactId;
 		this.service = service;
 		this.status = status;
 		this.startDate = Long.toString(System.currentTimeMillis());
-		this.timeSpent = timeSpent;
-		this.priceRate = priceRate;
+		this.timeSpent = "0";
+		this.priceRate = 5;
 		this.branchOfficeId = branchOfficeId;
 		this.technicianId = technicianId;
 		
+	}
+	
+	public Ticket(JSONObject nTk) {
+		this.accountId = (String) nTk.get("accountid");
+		this.contactId = (String) nTk.get("contactid");
+		this.service = (String) nTk.get("service");
+		this.status = (String) nTk.get("status");
+		this.startDate = Long.toString(System.currentTimeMillis());
+		this.timeSpent = "0";
+		this.priceRate = 5;
+		this.branchOfficeId = (String) nTk.get("accountid");
+		this.technicianId = (String) nTk.get("accountid");
+	}
+	
+
+	@Override
+	public String toString() {
+		return "Ticket [ticketId=" + ticketId + ", accountId=" + accountId + ", contactId=" + contactId + ", service="
+				+ service + ", status=" + status + ", startDate=" + startDate + ", timeSpent=" + timeSpent
+				+ ", priceRate=" + priceRate + ", branchOfficeId=" + branchOfficeId + ", technicianId=" + technicianId
+				+ "]";
 	}
 
 	public String getAccountId() {
@@ -107,7 +139,12 @@ public class Ticket {
 		return ticketId;
 	}
 	
-	
+	public void save() {	//Saves this Ticket
+		Session ses = App.createSession();
+		Transaction tx = ses.beginTransaction();
+    	ses.save(this);
+    	tx.commit();
+	}
 	
 	
 }

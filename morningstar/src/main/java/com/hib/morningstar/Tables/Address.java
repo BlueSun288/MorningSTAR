@@ -1,6 +1,11 @@
-package com.hib.morningstar;
+package com.hib.morningstar.Tables;
 
-public class Address {
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.hib.morningstar.App;
+
+public class Address implements HibernateObject{
 	private int buildingNumber;
 	private String street;
 	private String city;
@@ -16,7 +21,7 @@ public class Address {
 	}
 
 	public Address() {
-
+		super();
 	}
 
 	public int getBuildingNumber() {
@@ -68,5 +73,12 @@ public class Address {
 				", state='" + state + '\'' +
 				", zip=" + zip +
 				'}';
+	}
+	
+	public void save() {	//Saves this Ticket
+		Session ses = App.createSession();
+		Transaction tx = ses.beginTransaction();
+    	ses.save(this);
+    	tx.commit();
 	}
 }

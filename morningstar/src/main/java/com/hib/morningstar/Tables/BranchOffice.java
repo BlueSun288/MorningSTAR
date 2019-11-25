@@ -1,11 +1,19 @@
-package com.hib.morningstar;
+package com.hib.morningstar.Tables;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.hib.morningstar.App;
+
 @Entity
-public class BranchOffice {
+public class BranchOffice implements HibernateObject{
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String branchOfficeID;
 	private String branchName;
 	private String branchAddress;
@@ -17,7 +25,7 @@ public class BranchOffice {
 	}
 
 	public BranchOffice() {
-
+		super();
 	}
 
 	public String getBranchOfficeID() {
@@ -42,5 +50,12 @@ public class BranchOffice {
 
 	public void setBranchAddress(String branchAddress) {
 		this.branchAddress = branchAddress;
+	}
+	
+	public void save() {	//Saves this Ticket
+		Session ses = App.createSession();
+		Transaction tx = ses.beginTransaction();
+    	ses.save(this);
+    	tx.commit();
 	}
 }

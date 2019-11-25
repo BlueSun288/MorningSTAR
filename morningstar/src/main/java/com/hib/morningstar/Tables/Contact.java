@@ -1,11 +1,19 @@
-package com.hib.morningstar;
+package com.hib.morningstar.Tables;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.hib.morningstar.App;
+
 @Entity
-public class Contact {
+public class Contact implements HibernateObject{
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String contactID;
 	private String accountID;
 	private boolean isPrimary;
@@ -18,6 +26,10 @@ public class Contact {
 		this.isPrimary = isPrimary;
 		this.firstName = firstName;
 		this.lastName = lastName;
+	}
+	
+	public Contact() {
+		super();
 	}
 
 	public String getContactID() {
@@ -58,6 +70,13 @@ public class Contact {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	public void save() {	//Saves this Ticket
+		Session ses = App.createSession();
+		Transaction tx = ses.beginTransaction();
+    	ses.save(this);
+    	tx.commit();
 	}
 
 }

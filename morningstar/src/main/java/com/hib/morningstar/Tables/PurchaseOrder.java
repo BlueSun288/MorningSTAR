@@ -1,16 +1,27 @@
-package com.hib.morningstar;
+package com.hib.morningstar.Tables;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.hib.morningstar.App;
+
 @Entity
-public class PurchaseOrder {
+public class PurchaseOrder implements HibernateObject{
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String purchaseOrderId;		//Unique Identifier
 	private String ticketId;			//ID of associated ticket
 	private String description;			//Description of purchase. 
 	private double price;				//Price to customer
 	
+	public PurchaseOrder() {
+		super();
+	}
 	
 	public PurchaseOrder(String purchaseOrderId, String ticketId, String description, double price) {
 		super();
@@ -50,7 +61,12 @@ public class PurchaseOrder {
 		return ticketId;
 	}
 	
-	
+	public void save() {	//Saves this Ticket
+		Session ses = App.createSession();
+		Transaction tx = ses.beginTransaction();
+    	ses.save(this);
+    	tx.commit();
+	}
 	
 	
 }

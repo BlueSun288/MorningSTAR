@@ -1,11 +1,19 @@
-package com.hib.morningstar;
+package com.hib.morningstar.Tables;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.hib.morningstar.App;
+
 @Entity
-public class Asset {
+public class Asset implements HibernateObject{
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String assetID;
 	private String ticketID;
 	private String name;
@@ -17,7 +25,7 @@ public class Asset {
 	}
 
 	private Asset() {
-
+		super();
 	}
 
 	public String getAssetID() {
@@ -42,5 +50,12 @@ public class Asset {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public void save() {	//Saves this Ticket
+		Session ses = App.createSession();
+		Transaction tx = ses.beginTransaction();
+    	ses.save(this);
+    	tx.commit();
 	}
 }

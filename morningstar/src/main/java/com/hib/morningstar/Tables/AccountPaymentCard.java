@@ -1,11 +1,19 @@
-package com.hib.morningstar;
+package com.hib.morningstar.Tables;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.hib.morningstar.App;
+
 @Entity
-public class AccountPaymentCard {
+public class AccountPaymentCard implements HibernateObject{
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String accountPaymentCardId;	//Unique Identifier
 	private String accountId;				//ID of associated account
 	private String cardExpDate;			//Expiration date of card
@@ -22,6 +30,10 @@ public class AccountPaymentCard {
 		this.cardType = cardType;
 		this.cardNumber = cardNumber;
 		this.cardName = cardName;
+	}
+	
+	public AccountPaymentCard() {
+		super();
 	}
 
 	public String getAccountPaymentCardId() {
@@ -72,5 +84,11 @@ public class AccountPaymentCard {
 		this.cardName = cardName;
 	}
 	
+	public void save() {	//Saves this Ticket
+		Session ses = App.createSession();
+		Transaction tx = ses.beginTransaction();
+    	ses.save(this);
+    	tx.commit();
+	}
 	
 }
