@@ -67,6 +67,7 @@ public class App
 	
 	public static void createAccount(JSONObject nAc) {
 		Account ac = new Account(nAc);
+		ac.save();
 	}
 	
 	public static String getTicket(String id) throws JsonProcessingException {	//Returns all the data for a single ticket
