@@ -7,6 +7,7 @@ import javax.persistence.Id;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.json.simple.JSONObject;
 
 import com.hib.morningstar.App;
 
@@ -23,14 +24,20 @@ public class PurchaseOrder implements HibernateObject{
 		super();
 	}
 	
-	public PurchaseOrder(String purchaseOrderId, String ticketId, String description, double price) {
+	public PurchaseOrder(String ticketId, String description, double price) {
 		super();
-		this.purchaseOrderId = purchaseOrderId;
+		
 		this.ticketId = ticketId;
 		this.description = description;
 		this.price = price;
 	}
 
+
+	public PurchaseOrder(JSONObject nPO) {
+		this.ticketId = (String) nPO.get("ticketid");
+		this.description = (String) nPO.get("description");
+		this.price = (double) nPO.get("price");
+	}
 
 	public String getDescription() {
 		return description;
@@ -66,6 +73,17 @@ public class PurchaseOrder implements HibernateObject{
 		Transaction tx = ses.beginTransaction();
     	ses.save(this);
     	tx.commit();
+	}
+
+	@Override
+	public JSONObject toJSON() {
+		JSONObject out = new JSONObject();
+		out.put("purchaseorderid", this.getPurchaseOrderId());
+		out.put("ticketid", this.getTicketId());
+		out.put("description", this.getDescription());
+		out.put("price", this.getPrice());
+		
+		return out;
 	}
 	
 	

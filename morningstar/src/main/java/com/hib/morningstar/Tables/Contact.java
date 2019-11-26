@@ -7,6 +7,7 @@ import javax.persistence.Id;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.json.simple.JSONObject;
 
 import com.hib.morningstar.App;
 
@@ -17,19 +18,26 @@ public class Contact implements HibernateObject{
 	private String contactID;
 	private String accountID;
 	private boolean isPrimary;
-	private String firstName;
-	private String lastName;
+	private String fName;
+	private String lName;
 
-	public Contact(String contactID, String accountID, boolean isPrimary, String firstName, String lastName) {
-		this.contactID = contactID;
+	public Contact(String accountID, boolean isPrimary, String firstName, String lastName) {
+		
 		this.accountID = accountID;
 		this.isPrimary = isPrimary;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.fName = firstName;
+		this.lName = lastName;
 	}
 	
 	public Contact() {
 		super();
+	}
+
+	public Contact(JSONObject nCo) {
+		this.accountID = (String) nCo.get("accountid");
+		this.isPrimary = (Boolean) nCo.get("isprimary");
+		this.fName = (String) nCo.get("firstname");
+		this.lName = (String) nCo.get("lastname");
 	}
 
 	public String getContactID() {
@@ -48,28 +56,28 @@ public class Contact implements HibernateObject{
 		this.accountID = accountID;
 	}
 
-	public boolean isPrimary() {
+	public boolean getIsPrimary() {
 		return isPrimary;
 	}
 
-	public void setPrimary(boolean primary) {
+	public void setIsPrimary(boolean primary) {
 		isPrimary = primary;
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return fName;
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.fName = firstName;
 	}
 
 	public String getLastName() {
-		return lastName;
+		return lName;
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lName = lastName;
 	}
 	
 	public void save() {	//Saves this Ticket
@@ -77,6 +85,18 @@ public class Contact implements HibernateObject{
 		Transaction tx = ses.beginTransaction();
     	ses.save(this);
     	tx.commit();
+	}
+
+	@Override
+	public JSONObject toJSON() {
+		JSONObject out = new JSONObject();
+		out.put("contactid", this.getContactID());
+		out.put("accountid", this.getAccountID());
+		out.put("isprimary", this.getIsPrimary());
+		out.put("fname", this.getFirstName());
+		out.put("lname", this.getLastName());
+		
+		return out;
 	}
 
 }

@@ -80,5 +80,15 @@ public class Account implements HibernateObject{
     	ses.save(this);
     	tx.commit();
 	}
+
+	@Override
+	public JSONObject toJSON() {
+		JSONObject out = new JSONObject();
+		out.put("accountid", this.getAccountId());
+		out.put("type", this.getType());
+		out.put("business", this.getBusiness());
+		out.put("address", this.getAddress());
+		return out;
+	}
 	
 }

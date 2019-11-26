@@ -7,6 +7,7 @@ import javax.persistence.Id;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.json.simple.JSONObject;
 
 import com.hib.morningstar.App;
 
@@ -64,6 +65,17 @@ public class Technician implements HibernateObject{
 		Transaction tx = ses.beginTransaction();
     	ses.save(this);
     	tx.commit();
+	}
+
+	@Override
+	public JSONObject toJSON() {
+		JSONObject out = new JSONObject();
+		out.put("technicianid", this.getTechnicianId());
+		out.put("fname", this.getfName());
+		out.put("lname", this.getlName());
+		out.put("branchofficeid", this.getBranchOfficeId());
+		
+		return out;
 	}
 	
 	

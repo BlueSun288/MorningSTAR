@@ -6,6 +6,7 @@ import javax.persistence.Id;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.json.simple.JSONObject;
 
 import com.hib.morningstar.App;
 
@@ -18,14 +19,19 @@ public class Appointment implements HibernateObject{
 	private String ticketID;
 	private Date date;
 
-	public Appointment(String appointmentID, String ticketID, Date date) {
-		this.appointmentID = appointmentID;
+	public Appointment(String ticketID, Date date) {
+		
 		this.ticketID = ticketID;
 		this.date = date;
 	}
 
 	public Appointment() {
 		super();
+	}
+
+	public Appointment(JSONObject nAp) {
+		this.ticketID = (String) nAp.get("ticketid");
+		this.date = (Date) nAp.get("date");;
 	}
 
 	public String getAppointmentID() {
@@ -57,5 +63,14 @@ public class Appointment implements HibernateObject{
 		Transaction tx = ses.beginTransaction();
     	ses.save(this);
     	tx.commit();
+	}
+
+	@Override
+	public JSONObject toJSON() {
+		JSONObject out = new JSONObject();
+		out.put("appointmentid", this.getAppointmentID());
+		out.put("ticketid", this.getTicketID());
+		out.put("date", this.getDate());
+		return out;
 	}
 }

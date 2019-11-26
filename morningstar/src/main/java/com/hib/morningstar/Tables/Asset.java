@@ -7,6 +7,7 @@ import javax.persistence.Id;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.json.simple.JSONObject;
 
 import com.hib.morningstar.App;
 
@@ -18,14 +19,19 @@ public class Asset implements HibernateObject{
 	private String ticketID;
 	private String name;
 
-	public Asset(String assetID, String ticketID, String name) {
-		this.assetID = assetID;
+	public Asset(String ticketID, String name) {
+		
 		this.ticketID = ticketID;
 		this.name = name;
 	}
 
 	private Asset() {
 		super();
+	}
+
+	public Asset(JSONObject nAs) {
+		this.ticketID = (String) nAs.get("ticketid");
+		this.name = (String) nAs.get("name");
 	}
 
 	public String getAssetID() {
@@ -57,5 +63,15 @@ public class Asset implements HibernateObject{
 		Transaction tx = ses.beginTransaction();
     	ses.save(this);
     	tx.commit();
+	}
+
+	@Override
+	public JSONObject toJSON() {
+		JSONObject out = new JSONObject();
+		out.put("assetid", this.getAssetID());
+		out.put("ticketid", this.getTicketID());
+		out.put("name", this.getName());
+		
+		return out;
 	}
 }

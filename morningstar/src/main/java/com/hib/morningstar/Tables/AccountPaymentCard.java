@@ -7,6 +7,7 @@ import javax.persistence.Id;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.json.simple.JSONObject;
 
 import com.hib.morningstar.App;
 
@@ -16,10 +17,10 @@ public class AccountPaymentCard implements HibernateObject{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String accountPaymentCardId;	//Unique Identifier
 	private String accountId;				//ID of associated account
-	private String cardExpDate;			//Expiration date of card
-	private String cardType;			//Card type. Visa, Mastercard, American Express
-	private String cardNumber;			//Number on card
-	private String cardName;			//Full name on card
+	private String cardExpDate;				//Expiration date of card
+	private String cardType;				//Card type. Visa, Mastercard, American Express
+	private String cardNumber;				//Number on card
+	private String cardName;				//Full name on card
 	
 	public AccountPaymentCard(String accountPaymentCardId, String accountId, String cardExpDate, String cardType,
 			String cardNumber, String cardName) {
@@ -89,6 +90,18 @@ public class AccountPaymentCard implements HibernateObject{
 		Transaction tx = ses.beginTransaction();
     	ses.save(this);
     	tx.commit();
+	}
+
+	@Override
+	public JSONObject toJSON() {
+		JSONObject out = new JSONObject();
+		out.put("accountpaymentcardid", this.getAccountPaymentCardId());
+		out.put("accountid", this.getAccountId());
+		out.put("cardexpdate", this.getCardExpDate());
+		out.put("cardtype", this.getCardType());
+		out.put("cardnumber", this.getCardNumber());
+		out.put("cardname", this.getCardName());
+		return out;
 	}
 	
 }

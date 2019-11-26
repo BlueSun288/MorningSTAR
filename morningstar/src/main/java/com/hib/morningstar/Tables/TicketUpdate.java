@@ -16,7 +16,6 @@ public class TicketUpdate implements HibernateObject{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String ticketUpdateId;
-	@Id
 	private String ticketId;
 	private String body;
 	private String technicianId;
@@ -68,6 +67,16 @@ public class TicketUpdate implements HibernateObject{
 		Transaction tx = ses.beginTransaction();
     	ses.save(this);
     	tx.commit();
+	}
+	@Override
+	public JSONObject toJSON() {
+		JSONObject out = new JSONObject();
+		out.put("ticketupdateid", this.getTicketUpdateId());
+		out.put("ticketid", this.getTicketId());
+		out.put("body", this.getBody());
+		out.put("technicianid", this.getTechnicianId());
+
+		return out;
 	}
 	
 }

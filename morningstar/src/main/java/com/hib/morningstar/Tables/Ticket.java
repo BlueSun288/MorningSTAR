@@ -145,6 +145,22 @@ public class Ticket implements HibernateObject{
     	ses.save(this);
     	tx.commit();
 	}
+
+	@Override
+	public JSONObject toJSON() {
+		JSONObject out = new JSONObject();
+		out.put("ticketid", this.getTicketId());
+		out.put("accountid", this.getAccountId());
+		out.put("contactid", this.getContactId());
+		out.put("service", this.getService());
+		out.put("status", this.getStatus());
+		out.put("startdate", this.getStartDate());
+		out.put("timespent", this.getTimeSpent());
+		out.put("pricerate", this.getPriceRate());
+		out.put("branchofficeid", this.getBranchOfficeId());
+		out.put("technicianid", this.getTechnicianId());
+		return out;
+	}
 	
 	
 }

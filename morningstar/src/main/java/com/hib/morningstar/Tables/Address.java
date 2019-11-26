@@ -2,6 +2,7 @@ package com.hib.morningstar.Tables;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.json.simple.JSONObject;
 
 import com.hib.morningstar.App;
 
@@ -80,5 +81,16 @@ public class Address implements HibernateObject{
 		Transaction tx = ses.beginTransaction();
     	ses.save(this);
     	tx.commit();
+	}
+
+	@Override
+	public JSONObject toJSON() {
+		JSONObject out = new JSONObject();
+		/*
+		 * out.put("aaaaaa", this.getaaaaa); out.put("aaaaaa", this.getaaaaa);
+		 * out.put("aaaaaa", this.getaaaaa); out.put("aaaaaa", this.getaaaaa);
+		 * out.put("aaaaaa", this.getaaaaa); out.put("aaaaaa", this.getaaaaa);
+		 */
+		return out;
 	}
 }
