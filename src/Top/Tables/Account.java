@@ -1,4 +1,4 @@
-package com.hib.morningstar.Tables;
+package Top.Tables;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.json.simple.JSONObject;
 
-import com.hib.morningstar.App;
+import Top.App;
 
 @Entity
 public class Account implements HibernateObject{

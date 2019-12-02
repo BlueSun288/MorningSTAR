@@ -1,4 +1,4 @@
-package com.hib.morningstar.Tables;
+package Top.Tables;
 
 import org.json.simple.JSONObject;
 

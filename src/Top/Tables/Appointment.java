@@ -1,4 +1,4 @@
-package com.hib.morningstar.Tables;
+package Top.Tables;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.json.simple.JSONObject;
 
-import com.hib.morningstar.App;
+import Top.App;
 
 import java.util.Date;
 

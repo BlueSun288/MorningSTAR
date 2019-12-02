@@ -1,4 +1,4 @@
-package com.hib.morningstar.Tables;
+package Top.Tables;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,20 +7,20 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.json.simple.JSONObject;
 
-import com.hib.morningstar.App;
+import Top.App;
 
 @Entity
-public class Phone implements HibernateObject{
+public class Email implements HibernateObject{
 	@Id
 	private String contactID;
-	private String phoneNumber;
+	private String email;
 
-	public Phone(String contactID, String phoneNumber) {
+	public Email(String contactID, String email) {
 		this.contactID = contactID;
-		this.phoneNumber = phoneNumber;
+		this.email = email;
 	}
 
-	public Phone() {
+	public Email() {
 		super();
 	}
 
@@ -32,14 +32,14 @@ public class Phone implements HibernateObject{
 		this.contactID = contactID;
 	}
 
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	
+
 	public void save() {	//Saves this Ticket
 		Session ses = App.createSession();
 		Transaction tx = ses.beginTransaction();
@@ -51,7 +51,7 @@ public class Phone implements HibernateObject{
 	public JSONObject toJSON() {
 		JSONObject out = new JSONObject();
 		out.put("contactid", this.getContactID());
-		out.put("phonenumber", this.getPhoneNumber());
+		out.put("email", this.getEmail());
 
 		return out;
 	}
